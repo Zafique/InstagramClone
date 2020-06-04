@@ -2,6 +2,7 @@ package com.zaocial.instagramclone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ import java.util.List;
 import okhttp3.internal.Internal;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
-    private Button saveData, getAllKickBoxer;
+    private Button saveData, getAllKickBoxer, btnNextActivity;
     private EditText name, punchPower, punchSpeed, kickPower, kickSpeed;
     private TextView txtGetData;
     private String allKickBoxer;
@@ -41,6 +42,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         kickSpeed = findViewById(R.id.edt_kick_Speed);
         txtGetData = findViewById(R.id.txtGetData);
         getAllKickBoxer = findViewById(R.id.btnAllData);
+        btnNextActivity = findViewById(R.id.btnNextActivity);
 
         saveData.setOnClickListener(SignUp.this);
 
@@ -65,6 +67,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                 allKickBoxer = "";
                 ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+                //queryAll.whereGreaterThan("punch_power",500);
+                queryAll.whereGreaterThanOrEqualTo("punch_speed", 1000);
+                queryAll.setLimit(1);
+
                 queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -76,7 +82,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                                 FancyToast.makeText(SignUp.this,
                                         allKickBoxer, FancyToast.LENGTH_LONG,
-                                        FancyToast.SUCCESS, true).show();
+                                        FancyToast.SUCCESS,true).show();
                             } else {
                                 FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG,
                                         FancyToast.ERROR, true).show();
@@ -84,6 +90,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                         }
                     }
                 });
+            }
+        });
+
+        btnNextActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUp.this, SignUpLoginActivity.class);
+                startActivity(intent);
             }
         });
 
