@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -20,9 +19,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
 
-import okhttp3.internal.Internal;
-
-public class SignUp extends AppCompatActivity implements View.OnClickListener {
+public class SignUpPractice extends AppCompatActivity implements View.OnClickListener {
     private Button saveData, getAllKickBoxer, btnNextActivity;
     private EditText name, punchPower, punchSpeed, kickPower, kickSpeed;
     private TextView txtGetData;
@@ -32,7 +29,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_sign_up_practice);
 
         saveData = findViewById(R.id.btnSave);
         name = findViewById(R.id.edt_Name);
@@ -44,7 +41,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         getAllKickBoxer = findViewById(R.id.btnAllData);
         btnNextActivity = findViewById(R.id.btnNextActivity);
 
-        saveData.setOnClickListener(SignUp.this);
+        saveData.setOnClickListener(SignUpPractice.this);
 
         txtGetData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,11 +77,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                                     allKickBoxer = allKickBoxer + kickBoxer.get("name") + "\n";
                                 }
 
-                                FancyToast.makeText(SignUp.this,
+                                FancyToast.makeText(SignUpPractice.this,
                                         allKickBoxer, FancyToast.LENGTH_LONG,
                                         FancyToast.SUCCESS,true).show();
                             } else {
-                                FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG,
+                                FancyToast.makeText(SignUpPractice.this, e.getMessage(), FancyToast.LENGTH_LONG,
                                         FancyToast.ERROR, true).show();
                             }
                         }
@@ -96,7 +93,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         btnNextActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUp.this, SignUpLoginActivity.class);
+                Intent intent = new Intent(SignUpPractice.this, SignUpLogin.class);
                 startActivity(intent);
             }
         });
@@ -117,18 +114,18 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        FancyToast.makeText(SignUp.this,
+                        FancyToast.makeText(SignUpPractice.this,
                                 kickBoxer.get("name") + "is save to the server", FancyToast.LENGTH_LONG,
                                 FancyToast.SUCCESS, true).show();
 
                     } else {
-                        FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG,
+                        FancyToast.makeText(SignUpPractice.this, e.getMessage(), FancyToast.LENGTH_LONG,
                                 FancyToast.ERROR, true).show();
                     }
                 }
             });
         } catch (Exception e) {
-            FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG,
+            FancyToast.makeText(SignUpPractice.this, e.getMessage(), FancyToast.LENGTH_LONG,
                     FancyToast.ERROR, true).show();
         }
     }

@@ -2,6 +2,7 @@ package com.zaocial.instagramclone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-public class SignUpLoginActivity extends AppCompatActivity {
+public class SignUpLogin extends AppCompatActivity {
 
     private EditText edtUserNameSignUp, edtPasswordSignUp, edtUserNameLogin, edtPasswordLogin;
     private Button btnSignUp, btnLogin;
@@ -43,12 +44,15 @@ public class SignUpLoginActivity extends AppCompatActivity {
                     public void done(ParseException e) {
 
                         if (e == null){
-                            FancyToast.makeText(SignUpLoginActivity.this,
+                            FancyToast.makeText(SignUpLogin.this,
                                     appUser.get("username") + " is Successfully Sign Up",
                                     FancyToast.LENGTH_LONG,
                                     FancyToast.SUCCESS,true).show();
+
+                            Intent intent = new Intent(SignUpLogin.this, WellCome.class);
+                            startActivity(intent);
                         }else {
-                            FancyToast.makeText(SignUpLoginActivity.this, e.getMessage(),
+                            FancyToast.makeText(SignUpLogin.this, e.getMessage(),
                                     FancyToast.LENGTH_LONG,
                                     FancyToast.ERROR, true).show();
                         }
@@ -67,12 +71,15 @@ public class SignUpLoginActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseUser user, ParseException e) {
                         if (user != null && e == null){
-                            FancyToast.makeText(SignUpLoginActivity.this,
+                            FancyToast.makeText(SignUpLogin.this,
                                     user.get("username") + " is Successfully Login",
                                     FancyToast.LENGTH_LONG,
                                     FancyToast.SUCCESS,true).show();
+
+                            Intent intent = new Intent(SignUpLogin.this, WellCome.class);
+                            startActivity(intent);
                         }else {
-                            FancyToast.makeText(SignUpLoginActivity.this, e.getMessage(),
+                            FancyToast.makeText(SignUpLogin.this, e.getMessage(),
                                     FancyToast.LENGTH_LONG,
                                     FancyToast.ERROR, true).show();
                         }
